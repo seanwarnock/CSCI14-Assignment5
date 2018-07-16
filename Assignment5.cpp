@@ -43,6 +43,7 @@ Open program, allow user to enter payroll data or exit
 
 using namespace std;
 
+
 float PayCalculater (float, float, float, float, int);
 
 int main()
@@ -81,5 +82,8 @@ float PayCalculater (float hours, float payrate, float fedtaxrate, float stateta
 This function will calculate one of the requested pay functions and return
 it's value.
 */
+
+
+
 
 }
