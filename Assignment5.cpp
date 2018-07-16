@@ -21,6 +21,11 @@ State WTaxes Withheld
 Social Security Taxes Witheld (6.2% of Gross)
 Medicare Taxes Withheld (1.45% of Gross)
 Net Pay
+
+
+Open program, allow user to enter payroll data or exit
+  if payroll information is entered then allow user to selct what to calculate including exit.
+
 */
 
 #include <time.h>
@@ -36,21 +41,45 @@ Net Pay
 
 #endif
 
-float PayCalculater (float, float, float, float, float, int);
+using namespace std;
+
+float PayCalculater (float, float, float, float, int);
 
 int main()
 {
+  char charMenuChoice;
 
+  do
+  {
+    system("cls");
+      cout << "[1] Enter Employee data?" << endl;
+      cout << "[2] Calculate Employee payroll?" << endl;
+      cout << "[9] Exit" << endl;
+      cin >> charMenuChoice;
 
-
+      switch (charMenuChoice)
+      {
+        case '1' :
+          // Call payroll enter
+          break;
+        case '2' :
+          // Call calculate @#$%  But the output has to come from main.
+          break;
+        case '9' :
+          //If there is anything for cleanup call it here but really just fall out.
+          break;
+      }
+    cout << (int)charMenuChoice;
+    system("pause");
+  } while (charMenuChoice != '9');
 
 }
 
-float PayCalculater (float, float, float, float, float, int)
+float PayCalculater (float hours, float payrate, float fedtaxrate, float statetaxrate, int responsetype)
 {
 /*
 This function will calculate one of the requested pay functions and return
-it's value
+it's value.
 */
 
 }
