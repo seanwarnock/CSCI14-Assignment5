@@ -17,7 +17,7 @@ Regular Pay (40 hours or less)
 Overtime Pay if any (over 40 hours)
 Gross Pay (Regular Pay plus Overtime if any)
 Federal Taxes Witheld
-State WTaxes Withheld
+State Taxes Withheld
 Social Security Taxes Witheld (6.2% of Gross)
 Medicare Taxes Withheld (1.45% of Gross)
 Net Pay
@@ -44,11 +44,16 @@ Open program, allow user to enter payroll data or exit
 using namespace std;
 
 
-float PayCalculater (float, float, float, float, int);
+float PayCalculater (float, float, float, float, short);
 
 int main()
 {
   char charMenuChoice;
+  float floatHour = 50;
+  float floatPayrate = 10;
+  float floatFedTaxRate = .05;
+  float floatStateTaxRate = .10;
+
 
   do
   {
@@ -65,25 +70,93 @@ int main()
           break;
         case '2' :
           // Call calculate @#$%  But the output has to come from main.
+          cout  << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 4) << endl;
           break;
         case '9' :
           //If there is anything for cleanup call it here but really just fall out.
           break;
       }
-    cout << (int)charMenuChoice;
+    //cout << (int)charMenuChoice;
     system("pause");
   } while (charMenuChoice != '9');
 
 }
 
-float PayCalculater (float hours, float payrate, float fedtaxrate, float statetaxrate, int responsetype)
+float PayCalculater (float hours, float payrate, float fedtaxrate, float statetaxrate, short responsetype)
 {
 /*
 This function will calculate one of the requested pay functions and return
 it's value.
 */
+  const short shortRegularPayHours = 40;
+  const float floatOvertimeRate = 1.2;
+
+  switch (responsetype)
+  {
+    case 0 :
+      {
+        //This calculates regular time pay.
+        if (hours > shortRegularPayHours)
+          {
+            return (shortRegularPayHours * payrate);
+          }
+          else
+          {
+            return (hours * payrate);
+          }
+        break;
+      }
+    case 1 :
+      {
+        //This calculates overtime pay.
+        if (hours > shortRegularPayHours)
+          {
+            return ((hours - shortRegularPayHours) * payrate);
+          }
+          else
+          {
+            return 0;
+          }
+        break;
+      }
+    case 2 :
+      {
+        //This calculates  overtime pay and regular time pay.  Lets go for recursion on this one.
+        return (PayCalculater(hours, payrate, fedtaxrate,statetaxrate,0) + PayCalculater(hours, payrate, fedtaxrate, statetaxrate, 1));
+        break;
+      }
+    case 3 :
+      {
+        //This returns the
+        return ((PayCalculater(hours, payrate, fedtaxrate,statetaxrate,0) + PayCalculater(hours, payrate, fedtaxrate, statetaxrate, 1)) * fedtaxrate);
+        break;
+      }
+    case 4 :
+      {
+        return ((PayCalculater(hours, payrate, fedtaxrate,statetaxrate,0) + PayCalculater(hours, payrate, fedtaxrate, statetaxrate, 1)) * statetaxrate);
+        break;
+      }
+    case 5 :
+      {
+        cout << "Social Security Taxes";
+        break;
+      }
+    case 6 :
+      {
+        cout << "Medicare Taxes Withheld (1.45% of Gross)";
+        break;
+      }
+    case 7 :
+      {
+        cout  << "Net Pay";
+        break;
+      }
+    default :
+      {
+        //Basically an error condition.
+        return 0;
+      }
 
 
-
-
+  }
 }
