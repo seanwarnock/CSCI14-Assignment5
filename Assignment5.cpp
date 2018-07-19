@@ -97,34 +97,88 @@ So I cheated on this function and treated it like a Pascal procedure.
 This function takes all user input and returns it to the main program.
 */
   system("cls");
-char Test[80];
+  char Test[80];
+  bool boolRangeChecker;
 
   cin.ignore();
   cout << "Emplyees full name : ";
   cin.getline(Test,80);
   Name = Test;
-  cout << "Name Variable: " << Name;
 
   cout  << "Employee ID : ";
   cin.getline(Test,80);
   ID = Test;
-  //cin.ignore();
 
-  cout << "Enter employee hours worked (up to 60 hours): ";
-  cin >> Hours;
-  cin.ignore();
 
-  cout << "Enter employee hourly pay rate : ";
-  cin >> PayRate;
-  cin.ignore();
+  boolRangeChecker = true;
+  do
+  {
+    cout << "Enter employee hours worked (up to 60 hours): ";
+    cin >> Hours;
+    cin.ignore();
+    if (!((Hours >= 0) && (Hours <= 60 )))
+    {
+      system("cls");
+      cout << "You entered : " << Hours << " hours." << endl;
+    }
+    else
+    {
+      boolRangeChecker = false;
+    }
+  }while (boolRangeChecker == true);
 
-  cout << "Enter the Federal Tax rate (up to 50%): ";
-  cin >> FedTax;
-cin.ignore();
+  boolRangeChecker = true;
+  do
+  {
+    cout << "Enter employee hourly pay rate ($10.75 - $99.99): ";
+    cin >> PayRate;
+    cin.ignore();
+    if (!((PayRate >= 10.75) && (PayRate <= 99.99)))
+    {
+      system("cls");
+      cout << "You entered : $" << PayRate << " per hour." << endl;
+    }
+    else
+    {
+      boolRangeChecker = false;
+    }
+  }while (boolRangeChecker == true);
 
-  cout << "Enter the State Tax rate (up to 30%): ";
-  cin >> StateTax;
-  cin.ignore();
+  boolRangeChecker = true;
+  do
+  {
+    cout << "Enter the Federal Tax rate (up to 50%): ";
+    cin >> FedTax;
+    cin.ignore();
+    FedTax = FedTax / 100;
+    if (!((FedTax >= 0) && (FedTax < .51)))// ran in to some rounding issues. Need a better way to solve this.
+    {
+      system("cls");
+      cout << "You entered : %" << (FedTax * 100) << " for the Federal Tax rate." << endl;
+    }
+    else
+    {
+      boolRangeChecker = false;
+    }
+  }while (boolRangeChecker == true);
+
+   boolRangeChecker = true;
+  do
+  {
+    cout << "Enter the State Tax rate (up to 30%): ";
+    cin >> StateTax;
+    cin.ignore();
+    StateTax = StateTax / 100;
+    if (!((StateTax >= 0) && (StateTax < .31)))// ran in to some rounding issues. Need a better way to solve this.
+    {
+      system("cls");
+      cout << "You entered : %" << (StateTax * 100) << " for the State Tax rate." << endl;
+    }
+    else
+    {
+      boolRangeChecker = false;
+    }
+  }while (boolRangeChecker == true);
 }
 
 
