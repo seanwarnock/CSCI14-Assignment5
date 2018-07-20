@@ -18,7 +18,7 @@ In this assignment, we will use a function to compute:
 2 Gross Pay (Regular Pay plus Overtime if any)
 3 Federal Taxes Withheld
 4 State Taxes Withheld
-5 Social Security Taxes Withheld (6.2% of Gross)
+5 Security Taxes Withheld (6.2% of Gross)
 6 Medicare Taxes Withheld (1.45% of Gross)
 7 Net Pay
 
@@ -75,15 +75,81 @@ int main()
           EmployeeDataInput(stringEmployeeName, stringEmployeeID, floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate);
           break;
         case '2' :
-          // Call calculate @#$%  But the output has to come from main.
-          cout  << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 7) << endl;
+          // If output MUST come from main then here we go.
+          int intMenuChoice2;
+          do
+          {
+              system("cls");
+              cout << "[1] Gross Pay" << endl;
+              cout << "[2] Federal Taxes Withhel @ %" << (floatFedTaxRate * 100)  << endl;
+              cout << "[3] State Taxes Withheld @ %" << (floatStateTaxRate * 100) << endl;
+              cout << "[4] Medicare Witheld" << endl;
+              cout << "[5] Social Security Withheld" << endl;
+              cout << "[6] Net Pay (Less all Deductions)" << endl;
+              cout << "[7] Regular Pay on " << floatHour << " hours worked" << endl;
+              cout << "[8] Overtime Pay on " << floatHour << " hours worked" << endl;
+              cout << "[9] Total Pay" << endl;
+              cout << "[10] Exit" << endl;
+              cin >> intMenuChoice2;
+              switch (intMenuChoice2)
+              {
+                case 1 :
+                  cout << "Your total pay is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 2) << endl;
+                  system ("pause");
+                  break;
+                case 2 :
+                  cout << "Your Federal Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 3) << endl;
+                  system ("pause");
+                  break;
+                case 3 :
+                  cout << "Your State Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 4) << endl;
+                  system ("pause");
+                  break;
+                case 4 :
+                  cout << "Your Medicare Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 6) << endl;
+                  system ("pause");
+                  break;
+                case 5 :
+                  cout << "Your Social Security Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 5) << endl;
+                  system ("pause");
+                  break;
+                case 6 :
+                  cout << "Your Net Pay less deductions is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 7) << endl;
+                  system("pause");
+                  break;
+                case 7 :
+                  cout << "Your regular pay is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 0) << endl;
+                  system("pause");
+                  break;
+                case 8 :
+                  cout << "Your overtime pay is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 1) << endl;
+                  system("pause");
+                  break;
+                case 9 :
+                   cout << "Your regular pay is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 0) << endl;
+                   cout << "Your overtime pay is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 1) << endl;
+                   cout << "Your total pay is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 2) << endl;
+                   cout << "Your Federal Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 3) << endl;
+                   cout << "Your State Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 4) << endl;
+                   cout << "Your Medicare Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 6) << endl;
+                   cout << "Your Social Security Taxes withheld are $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 5) << endl;
+                   cout << "Your Net Pay less deductions is $" << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 7) << endl;
+                   system("pause");
+                  break;
+                case 10:
+                  break;
+              }
+
+
+            }while (intMenuChoice2 != 10);
+          //cout  << PayCalculater(floatHour, floatPayrate, floatFedTaxRate, floatStateTaxRate, 7) << endl;
           break;
         case '9' :
           //If there is anything for cleanup call it here but really just fall out.
           break;
       }
     //cout << (int)charMenuChoice;
-    system("pause");
+    //system("pause");
   } while (charMenuChoice != '9');
 
 }
@@ -261,10 +327,10 @@ it's value.
         // This returns the net pay.
         floatGrossPay = (PayCalculater(hours, payrate, fedtaxrate, statetaxrate, 0) + PayCalculater(hours, payrate, fedtaxrate, statetaxrate, 1));
         floatNetPay = floatGrossPay;
-        floatNetPay += floatGrossPay * fedtaxrate;
-        floatNetPay += floatGrossPay * statetaxrate;
-        floatNetPay += floatGrossPay * floatSocialSecurityTax;
-        floatNetPay += floatGrossPay * floatMeicareTax;
+        floatNetPay -= floatGrossPay * fedtaxrate;
+        floatNetPay -= floatGrossPay * statetaxrate;
+        floatNetPay -= floatGrossPay * floatSocialSecurityTax;
+        floatNetPay -= floatGrossPay * floatMeicareTax;
         return floatNetPay;
         break;
       }
